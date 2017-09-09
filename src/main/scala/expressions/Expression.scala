@@ -1,10 +1,14 @@
 package expressions
 
 sealed trait Expression
+
 object Expression {
   case class Literal(x: Int) extends Expression
+
   case class Mul(x: Expression, y: Expression) extends Expression
+
   case class Add(x: Expression, y: Expression) extends Expression
+
   case class Sub(x: Expression, y: Expression) extends Expression
 
   def printExpression(program: Expression): String =

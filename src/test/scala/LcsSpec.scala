@@ -1,7 +1,7 @@
 import org.scalatest.{Matchers, WordSpec}
 
 class LcsSpec extends WordSpec with Matchers {
-  import lcs._
+  import lcs.{findCommonSequence => lcs}
 
   "LCS" must {
 

@@ -18,7 +18,7 @@ object Console extends App {
       leftString <- readLn
       _ <- putStrLn("Right string:")
       rightString <- readLn
-      result = lcs(leftString, rightString)
+      result = findCommonSequence(leftString, rightString)
       _ <- putStrLn(s"Result = $result")
     } yield {}
 
@@ -37,6 +37,7 @@ object Console extends App {
       for {
         _ <- putStrLn("Enter a positive integer for a target number: ")
         numberOpt <- readInt
+        _ <- putStrLn(numberOpt.map(_.toString).getOrElse("-"))
         number <- numberOpt match {
           case Some(v) => IO(v)
           case None => readTarget

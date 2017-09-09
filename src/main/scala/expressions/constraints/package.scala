@@ -1,20 +1,22 @@
 package expressions
 
-import Expression._
+import expressions.Expression._
 
 package object constraints {
-  /**
-    * Expression constraints
-    *
-    * This trait represents possible constraints imposed by the evaluation environment, i.e. non-negative sub-groups.
-    */
+
   trait ExpressionConstraint {
-    def check(op: Expression): Boolean
+    def isSatisfied(exp: Expression): Boolean
   }
 
-  object NonNegativeExpressionConstraint extends ExpressionConstraint {
-    override def check(op: Expression): Boolean = {
-      evaluateExpression(op) > 0
+  object HasNoNegativeGroups extends ExpressionConstraint {
+    override def isSatisfied(expression: Expression): Boolean = {
+      expression match {
+        case Literal(x) => x > 0
+        case Sub(x: Expression, y: Expression) => evaluateExpression(x) - evaluateExpression(y) > 0
+        case Add(x: Expression, y: Expression) => evaluateExpression(x) + evaluateExpression(y) > 0
+        case Mul(x, y) => isSatisfied(x) || isSatisfied(y)
+      }
     }
   }
+
 }
