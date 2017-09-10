@@ -29,6 +29,7 @@ object Console extends App {
         item <- readInt
         items <- item match {
           case Some(v) if v > 0 => readItems(v :: list)
+          case Some(v) if v < 0 => readItems(list)
           case _ => IO(list)
         }
       } yield items
