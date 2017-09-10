@@ -1,13 +1,29 @@
+import org.scalatest.concurrent.{TimeLimits}
 import org.scalatest.{Matchers, WordSpec}
 
-class EquationDeriverSpec extends WordSpec with Matchers {
+import scala.concurrent.duration._
+
+class EquationDeriverSpec extends WordSpec with Matchers with TimeLimits {
   import expressions._
   import Expression._
 
   "Equation deriver" must {
 
     "exit within a finite time in a case of an increased amount of input data" in {
-      findSolutions((1 to 100).toList, 42).take(1000)
+      // there should be a better metric to use, as the execution time may vary depending on the environment
+      failAfter(500.millis) {
+        findSolutions((1 to 100).toList, 42).take(1000)
+      }
+    }
+
+    "only produce correct solutions" in {
+      // there should be a better metric to use, as the execution time may vary depending on the environment
+      failAfter(1000.millis) {
+        val solutions = findSolutions((1 to 100).toList, 42).take(1000)
+        solutions foreach { solution =>
+          evaluateExpression(solution) should be (42)
+        }
+      }
     }
 
     "produce a correct equations list for a given solvable problem" in {

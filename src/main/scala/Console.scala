@@ -18,7 +18,7 @@ object Console extends App {
       leftString <- readLn
       _ <- putStrLn("Right string:")
       rightString <- readLn
-      result = findCommonSequence(leftString, rightString)
+      result = findCommonSequenceMemo(leftString, rightString)
       _ <- putStrLn(s"Result = $result")
     } yield {}
 

@@ -1,5 +1,10 @@
 ### Goodlord, Technical Assessment
 
+##### External libraries
+
+- Scalaz
+- Scalatest
+
 ##### Console
 
 Both tasks are accessible via a common CLI. It was quickly drafted using 
@@ -18,6 +23,10 @@ Estimated complexity for both space and time is `O(m * n)`, due to recursive cac
 strategy.
 
 There is basic unit tests that are covering three main use-cases: `LcsSpec`.
+
+Also, due to a JVM-limitation in evaluation of recursive functions (stack size), two versions 
+alternative versions were implemented. `findCommonSequenceStacksafe` uses `Free`-monads (trampoline) to
+guarantee stack-safety.
 
 ###### Directions to run:
 
