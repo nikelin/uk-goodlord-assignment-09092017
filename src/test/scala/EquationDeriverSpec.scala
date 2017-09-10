@@ -17,12 +17,9 @@ class EquationDeriverSpec extends WordSpec with Matchers with TimeLimits {
     }
 
     "only produce correct solutions" in {
-      // there should be a better metric to use, as the execution time may vary depending on the environment
-      failAfter(1000.millis) {
-        val solutions = findSolutions((1 to 100).toList, 42).take(1000)
-        solutions foreach { solution =>
-          evaluateExpression(solution) should be (42)
-        }
+      val solutions = findSolutions((1 to 100).toList, 42).take(1000)
+      solutions foreach { solution =>
+        evaluateExpression(solution) should be (42)
       }
     }
 
